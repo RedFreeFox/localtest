@@ -1,0 +1,11 @@
+UPDATE "public"."sys_navigations" SET "isvisible" = 0 WHERE "navid" = 97;
+UPDATE "public"."sys_navigations" SET "isvisible" = 0 WHERE "navid" = 96;
+
+
+	
+140.82.114.4
+
+
+140.82.113.3
+
+199.232.5.194
