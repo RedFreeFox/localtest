@@ -1,0 +1,54 @@
+server:
+  port: 8889
+
+spring:
+  application:
+    name: zuul
+
+
+#使用SimpleHostRoutingFilter来处理简单路由,也就是不走Eureka的Proxy
+#简单路由在配置path的时候是以“http”或“https”开头的
+
+#使用SendForwordFilter 来处理跳转路由
+#虽然我们请求的是网关，但是产生了响应之后，并不会响应到网关，而是我们给出的跳转地址
+
+zuul:
+  routes:
+    bank-user:
+      path: /bu/**
+      serviceId: bank-user
+    bank-account:
+      path: /ba/**
+      serviceId: bank-account
+    baidu:
+      url: https://www.baidu.com
+    simple:
+      path: /simple/**
+      url: http://www.163.com
+
+  host:
+    max-total-connections: 200
+    max-per-route-connections: 20
+
+  ratelimit:
+    key-prefix:  your-prefix #对应用来标识请求的key的前缀
+    enabled: true
+    repository: in_memory
+    behind-proxy: true #代理之后
+    policies:
+      default-policy:  #可选 - 针对所有的路由配置的策略，除非特别配置了policies
+        limit: 10 #可选 - 每个刷新时间窗口对应的请求数量限制
+        quota: 1000 #可选-  每个刷新时间窗口对应的请求时间限制（秒）
+        refresh-interval: 60 # 刷新时间窗口的时间，默认值 (秒)
+        type: origin #可选 限流方式
+      bank-user:
+        limit: 10
+        quota: 1000
+        refresh-interval: 60
+        type: URL
+
+
+
+
+
+

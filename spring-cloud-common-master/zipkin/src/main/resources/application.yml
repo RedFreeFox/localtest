@@ -1,0 +1,29 @@
+server:
+  #服务注册中心端口号
+  port: 9411
+
+spring:
+  zipkin:
+    enabled: false
+  datasource:
+    schema: classpath:mysql.sql
+    url: jdbc:mysql://localhost:3306/project?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: root
+    password: lanboal
+    continue-on-error: true
+  sleuth:
+    enabled: false
+
+zipkin:
+  storage:
+    type: mysql
+
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
+
+
+
+
