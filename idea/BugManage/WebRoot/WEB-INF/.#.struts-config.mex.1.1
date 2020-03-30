@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowViewLayout Version="1.2">
+  <StrutsActivity path="/project.do" location="50,50" dimension="316,84" />
+  <StrutsActivity path="/report.do" location="650,150" dimension="310,84" />
+  <StrutsActivity path="/ModifyProject.jsp" location="950,50" dimension="148,48" />
+  <StrutsActivity path="/success.jsp" location="650,50" dimension="112,48" />
+  <StrutsActivity path="/model.do" location="50,250" dimension="304,84" />
+  <StrutsTransition id="/model.do,success,/success.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="354,292" />
+      <AbsolutePoint location="501,292" />
+      <AbsolutePoint location="501,74" />
+      <AbsolutePoint location="650,74" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/project.do,AddProjectInfo,/ModifyProject.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="366,113" />
+      <AbsolutePoint location="1024,113" />
+      <AbsolutePoint location="1024,98" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/report.do,ModuleReport,/success.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="747,150" />
+      <AbsolutePoint location="747,98" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+</FlowViewLayout>
+

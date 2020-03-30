@@ -1,0 +1,8 @@
+spring:
+  application:
+    #代表项目里文件名称的前缀：user
+    name: bank-kafka
+
+  kafka:
+    producer:
+      acks: 0

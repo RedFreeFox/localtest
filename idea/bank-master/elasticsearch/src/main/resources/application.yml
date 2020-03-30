@@ -1,0 +1,18 @@
+spring:
+  application:
+    #代表项目里文件名称的前缀：user
+    name: bank-elastcisearch
+
+    # elasticsearch集群名称，默认的是elasticsearch
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+
+      #节点的地址 注意api模式下端口号是9300，千万不要写成9200
+      cluster-nodes: 127.0.0.1:9300
+
+      #是否开启本地存储
+      repositories.enable: true
+
+server:
+  port: 8888

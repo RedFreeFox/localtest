@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+</head>
+<body>
+    <h2>首页</h2>
+    <div class="subsystemBox">
+        <div class="mySalaryBill-box rollBox">
+            <div class="msbHeadBox">
+                <div class="msbTimeBox">
+                    <span >时间</span>
+                    <Input v-model="value" placeholder="Enter something..." style="width: 300px"/>
+                </div>
+                <div class="msbHeadBtn">
+                    <Button type="primary" @click="getMyPayBillDetail()" style="float: left;width: 200px;margin-right: 10px;background-color: #E8E8E8;border-color: #E8E8E8; color: #333333;">查询</Button>
+                </div>
+            </div>
+            <!--Echart图表-->
+            <div class="msbEchartBox">
+                <div class="mySalaryBill" id="mySalaryBill"></div>
+            </div>
+        </div>
+
+    </div>
+    <div>
+    <!--    <ul>
+            <li  th:each="btcCoin:${btcCoins}">
+                <span th:text="${btcCoin.id}"></span>-
+                <span th:text="${btcCoin.name}"></span>-
+                <span th:text="${btcCoin.code}"></span>-
+                <span th:text="${btcCoin.price}"></span>
+            </li>
+        </ul>-->
+    </div>
+</body>
+</html>

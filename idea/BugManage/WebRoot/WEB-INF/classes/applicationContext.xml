@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	default-autowire="byName" xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd ">
+
+	<!-- session -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation"
+			value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+	<!-- 配置管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager" />
+	<!-- 事物管理 -->
+	<tx:advice id="txadvice" >
+		<tx:attributes>
+			<tx:method name="get*" propagation="NOT_SUPPORTED" read-only="false" />
+			<tx:method name="*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+	<!-- aop -->
+	<aop:config>
+		<aop:advisor advice-ref="txadvice" pointcut="execution(* org.bugManage.service.impl.*.*(..))"/>
+	</aop:config>
+	
+	<!-- dao -->
+	<bean id="userinfoDao" class="org.bugManage.dao.UserinfoDAO"/>
+	<bean id="bugDao" class="org.bugManage.dao.BugDAO"/>
+	<bean id="bughistoryDao" class="org.bugManage.dao.BughistoryDAO"/>
+	<bean id="bugeditionDao" class="org.bugManage.dao.BugeditionDAO"/>
+	<bean id="projectDao" class="org.bugManage.dao.ProjectDAO"/>
+	<bean id="projectmodelDao" class="org.bugManage.dao.ProjectmodelDAO"/>
+	<bean id="projectuserDao" class="org.bugManage.dao.ProjectuserDAO"/>
+	<bean id="basedataDao" class="org.bugManage.dao.BasedataDAO"/>
+	<bean id="basedataitemDao" class="org.bugManage.dao.BasedataitemDAO" />
+	<bean id="reportDao" class="org.bugManage.dao.ReportDAO"/>
+	<bean id="roleDao" class="org.bugManage.dao.RoleDAO"/>
+
+	<!-- service -->
+	<bean id="userinfoService" class="org.bugManage.service.impl.UserInfoServiceImpl"></bean>
+	<bean id="bugService" class="org.bugManage.service.impl.BugServiceImpl" />
+    <bean id="projectService" class="org.bugManage.service.impl.ProjectServiceImpl" /> 
+    <bean id="projectmodelService" class="org.bugManage.service.impl.ProjectModelServiceImpl" /> 
+    <bean id="projectuserService" class="org.bugManage.service.impl.ProjectUserServiceImpl" /> 
+    <bean id="reportService" class="org.bugManage.service.impl.ReportServiceImpl"/>
+	<!-- action -->
+
+	<bean name="/user" class="org.bugManage.web.struts.action.UserAction"></bean>
+	<bean name="/bug" class="org.bugManage.web.struts.action.BugAction"/>
+	<bean name="/report" class="org.bugManage.web.struts.action.ReportAction"/>
+	<bean name="/project" class="org.bugManage.web.struts.action.ProjectAction"/>
+    <bean name="/model" class="org.bugManage.web.struts.action.ModelAction"/>
+	</beans>

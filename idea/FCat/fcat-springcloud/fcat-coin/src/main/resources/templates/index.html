@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>echarts</title>
+    <script type="text/javascript" src='js/echarts.min.js'></script>
+</head>
+<body>
+    <div id="chart" style="width:1840px;height:840px;"></div>
+</body>
+<script type="text/javascript"  th:inline="javascript">
+    // 初始化图表标签
+    /*<![CDATA[*/
+    var totals = [[${totals}]];
+    var prices = [[${prices}]];
+    var colloctDates = [[${colloctDates}]];
+    /*]]>*/
+    var myChart = echarts.init(document.getElementById('chart'));
+    var options = {
+        tooltip : {
+            trigger: 'axis'
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType: {show: true, type: ['line']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        legend: {
+            data:['持仓数量','价格']
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : colloctDates
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                name : '价格',
+                scale: true,
+                axisLabel : {
+                    formatter: '{value}'
+                }
+            },
+            {
+                type : 'value',
+                name : '持仓',
+                scale: true,
+                axisLabel : {
+                    formatter: '{value}',
+                }
+            }
+        ],
+        series : [
+
+            {
+                name:'价格',
+                type:'line',
+                data:prices
+            },
+
+            {
+                name:'持仓数量',
+                type:'line',
+                yAxisIndex: 1,
+                data:totals
+            },
+        ]
+    };
+    myChart.setOption(options);
+</script>
+
+</html>

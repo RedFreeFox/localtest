@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"> 
+  <!-- <link rel="stylesheet" href="./css/index.css"> --> 
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <style>
+  .el-header {
+    background-color: #B3C0D1;
+    color: #333;
+    line-height: 60px;
+  }
+  
+  .el-aside {
+    color: #333;
+  }
+</style>
+</head>
+<body>
+  <div id="app"> 
+    <el-container>
+    <el-header style="  font-size: 12px"> 
+	<el-row>
+	  <el-button >均线策略</el-button> 
+	</el-row>
+      <span>翔飞君</span>
+    </el-header>
+    
+    <el-main> 
+		<el-row> 
+		  <el-select v-model="symbol" placeholder="请选择">
+			<el-option
+			  v-for="item in symbols"
+			  :key="item.value"
+			  :label="item.label"
+			  :value="item.value">
+			</el-option>
+		  </el-select> 
+		  <el-select v-model="contractType" placeholder="请选择">
+			<el-option
+			  v-for="item in contractTypes"
+			  :key="item.value"
+			  :label="item.label"
+			  :value="item.value">
+			</el-option>
+		  </el-select> 
+		  <el-select v-model="period" placeholder="请选择">
+			<el-option
+			  v-for="item in periods"
+			  :key="item.value"
+			  :label="item.label"
+			  :value="item.value">
+			</el-option>
+		  </el-select> 
+		  <el-select v-model="period" placeholder="请选择">
+			<el-option
+			  v-for="item in periods"
+			  :key="item.value"
+			  :label="item.label"
+			  :value="item.value">
+			</el-option>
+		  </el-select> 
+		</el-row>
+		<el-row> 
+		  <el-col :span="2" >长期均线</el-col>
+		  <el-col :span="2"><el-input v-model="upAvg" placeholder="请输入内容"></el-input></el-col>
+		  <el-col :span="2" >短期均线</el-col>
+		  <el-col :span="2"><el-input v-model="downAvg" placeholder="请输入内容"></el-input></el-col>
+		  <el-col :span="2" >上引线因子</el-col>
+		  <el-col :span="2"><el-input v-model="upperLeadFactor" placeholder="请输入内容"></el-input></el-col>
+		  <el-col :span="2" >涨幅因子</el-col>
+		  <el-col :span="2"><el-input v-model="gainFactor" placeholder="请输入内容"></el-input></el-col>  
+		  <el-col :span="2" >保护因子</el-col>
+		  <el-col :span="2"><el-input v-model="protectionDownFactor" placeholder="请输入内容"></el-input></el-col>  
+		  <el-col :span="4" ><el-button type="primary" @click="getTwoMaStrategy()">查询</el-button></el-col> 
+		</el-row>
+		<el-row> 
+		  <el-col  >总收益：{{twoMaStrategy.income}}</el-col> 
+		  <el-col  >买卖次数：{{twoMaStrategy.sumNum}}</el-col> 
+		</el-row>
+      <el-table :data="twoMaStrategy.detail" >
+        <el-table-column prop="date" label="日期"  >
+        </el-table-column>
+        <el-table-column prop="close" label="收盘价"  >
+        </el-table-column>
+        <el-table-column prop="buySellStatus" label="买入/卖出">
+        </el-table-column>
+        <el-table-column prop="incomeRate" label="收益">
+        </el-table-column> 
+      </el-table>
+    </el-main>
+  </el-container> 
+  </div>
+</body>
+  <!-- import Vue before Element -->
+  <script src="./js/vue.js"></script>
+  <!-- import JavaScript -->  
+  <!--<script src="./js/element-ui.js"></script> -->  
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="./js/axios.min.js"></script> 
+  <script>
+    new Vue({
+      el: '#app',
+      data: function() { 
+		  return { 
+			baseUrl: '',
+			symbols: [{
+			  value: 'BTC',
+			  label: 'BTC'
+			}, {
+			  value: 'EOS',
+			  label: 'EOS'
+			}],
+			symbol: 'EOS',
+			contractTypes: [{
+			  value: 'quarter',
+			  label: '季度合约'
+			}],
+			contractType: 'quarter',
+			periods: [{
+			  value: '15min',
+			  label: '15min'
+			}, {
+			  value: '60min',
+			  label: '60min'
+			}],
+			period: '15min',
+			upAvg:30,
+			downAvg:6,
+			upperLeadFactor:1.5,
+			twoMaStrategy:{},
+			sumIncome:0,
+			sumNum:0,
+			gainFactor:-0.005,
+			protectionDownFactor:0.017
+			
+		  }
+      },
+	  methods: {
+		  getTwoMaStrategy: function () {
+			this.twoMaStrategy = {};
+			var self = this;
+			  axios.get(this.baseUrl+'/api/v1/kline/queryTwoMaStrategy?symbol='+this.symbol+'&contractType='+this.contractType+'&period='+this.period+'&upMaNum='+this.upAvg+'&downMaNum='+this.downAvg+'&upperLeadFactor='+this.upperLeadFactor)
+			  .then(function(response){
+				console.log(response);
+				self.twoMaStrategy = response.data.data;  
+			  })
+			  .catch(function(err){
+				console.log(err);
+			  });
+		}
+	  },
+	  mounted: function () {
+		this.getTwoMaStrategy();
+	  }
+    })
+  </script> 
+</html>

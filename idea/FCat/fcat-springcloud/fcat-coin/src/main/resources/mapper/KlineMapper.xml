@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xfdmao.fcat.coin.mapper.KlineMapper" >
+  <resultMap id="BaseResultMap" type="com.xfdmao.fcat.coin.entity.Kline" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="vol" property="vol" jdbcType="DOUBLE" />
+    <result column="count" property="count" jdbcType="DOUBLE" />
+    <result column="open" property="open" jdbcType="DOUBLE" />
+    <result column="close" property="close" jdbcType="DOUBLE" />
+    <result column="low" property="low" jdbcType="DOUBLE" />
+    <result column="high" property="high" jdbcType="DOUBLE" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="symbol" property="symbol" jdbcType="VARCHAR" />
+    <result column="contract_type" property="contractType" jdbcType="VARCHAR" />
+    <result column="date_id" property="dateId" jdbcType="BIGINT" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="kline_date" property="klineDate" jdbcType="TIMESTAMP" />
+
+  </resultMap>
+
+  <select id="equalsListBySymbol" parameterType="map" resultMap="BaseResultMap"
+          statementType="PREPARED">
+    SELECT *
+    FROM kline  WHERE symbol=#{symbol} and contract_type = #{contractType} and period=#{period}  order by date_id
+  </select>
+  <insert id="insertBatch"    parameterType="com.xfdmao.fcat.coin.entity.Kline"  >
+    REPLACE  into kline(
+    vol,
+    count,
+    open,
+    close,
+    low,
+    high,
+    amount,
+    symbol,
+    contract_type,
+    date_id,
+    period,
+    kline_date
+    )
+    values
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+      #{item.vol},
+      #{item.count},
+      #{item.open},
+      #{item.close},
+      #{item.low},
+      #{item.high},
+      #{item.amount},
+      #{item.symbol},
+      #{item.contractType},
+      #{item.dateId},
+      #{item.period},
+      #{item.klineDate}
+      )
+    </foreach>
+  </insert>
+</mapper>

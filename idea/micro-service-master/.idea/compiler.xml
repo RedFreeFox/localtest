@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ribbon" />
+        <module name="config-server" />
+        <module name="sleuth" />
+        <module name="turbine" />
+        <module name="service-admin" />
+        <module name="feign" />
+        <module name="zuul" />
+        <module name="eureka-sever" />
+        <module name="service-B2" />
+        <module name="hystrix-ribbon" />
+        <module name="hystrix-dashboard" />
+        <module name="hystrix-feign" />
+        <module name="service-B" />
+        <module name="service-A" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="config-server" target="1.7" />
+      <module name="eureka-sever" target="1.7" />
+      <module name="feign" target="1.7" />
+      <module name="hystrix-dashboard" target="1.7" />
+      <module name="hystrix-feign" target="1.7" />
+      <module name="hystrix-ribbon" target="1.7" />
+      <module name="micro-service" target="1.6" />
+      <module name="ribbon" target="1.7" />
+      <module name="service-A" target="1.7" />
+      <module name="service-admin" target="1.7" />
+      <module name="service-B" target="1.7" />
+      <module name="service-B2" target="1.7" />
+      <module name="sleuth" target="1.7" />
+      <module name="turbine" target="1.7" />
+      <module name="zuul" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

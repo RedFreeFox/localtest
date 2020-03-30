@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+  <data-sources />
+
+
+  <form-beans >
+    <form-bean name="userForm" type="org.bugManage.web.struts.form.UserForm" />
+    <form-bean name="bugForm" type="org.bugManage.web.struts.form.BugForm" />
+    <form-bean name="projectForm" type="org.bugManage.web.struts.form.ProjectForm" />
+    <form-bean name="modelForm" type="org.bugManage.web.struts.form.ModelForm" />
+  </form-beans>
+
+  <global-exceptions />
+  <global-forwards />
+
+  <action-mappings >
+  <!-- 用户UserInfo -->
+   <action
+      name="userForm"
+      parameter="method"
+      path="/user"
+      scope="request"
+      type="org.bugManage.web.struts.action.UserAction"
+      validate="false">
+      <forward name="login" path="/user.do?method=LoadIndex" />
+      <forward name="LoadIndex" path="/page/index.jsp" />
+      <forward name="ExitLogin" path="/login.jsp" />
+      <forward name="error" path="/error.jsp" />
+    </action>
+  <!-- 项目表Project -->
+    <action
+      name="projectForm"
+      parameter="method"
+      path="/project"
+      scope="request"
+      type="org.bugManage.web.struts.action.ProjectAction"
+      validate="false">
+      <forward name="AddProjectInfo" path="/ModifyProject.jsp" />
+    </action>
+    <!-- 报表Report -->
+    <action
+      parameter="method"
+      path="/report"
+      scope="request"
+      type="org.bugManage.web.struts.action.ReportAction"
+      validate="false">
+      <forward name="ModuleReport" path="/success.jsp" />
+    </action>
+    <!-- 项目模块表ProjectModel -->
+    <action
+      attribute="modelForm"
+      name="modelForm"
+      parameter="method"
+      path="/model"
+      scope="request"
+      type="org.bugManage.web.struts.action.ModelAction"
+      validate="false">
+      <forward name="ToProjectModel" path="/projectmodel.jsp" />
+      <forward name="AddProjectModel" path="/success.jsp" />
+    </action>
+    <!-- BUGAciton -->
+    <action
+      attribute="bugForm"
+      input="/index.jsp"
+      name="bugForm"
+      parameter="method"
+      path="/bug"
+      scope="request"
+      type="org.bugManage.web.struts.action.BugAction" >
+      <forward name="test" path="/MyJsp.jsp" />
+      <forward name="showBugView" path="/files/Test/TestBugView.jsp" />
+      <forward name="showBugShow" path="/files/Test/TestBugShow.jsp" />
+      <forward name="showBugAdd" path="/files/Test/TestaddBug.jsp" />
+ 
+    </action>
+
+
+  </action-mappings>
+
+
+
+  <controller processorClass="org.springframework.web.struts.DelegatingRequestProcessor"></controller>
+  <message-resources parameter="org.bugManage.web.struts.ApplicationResources" />
+</struts-config>
+

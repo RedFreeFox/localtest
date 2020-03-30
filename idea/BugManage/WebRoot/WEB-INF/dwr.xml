@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"
+    "http://getahead.org/dwr/dwr20.dtd">
+
+<dwr>
+ 
+	<allow>
+	
+		<create javascript="showPerson" creator="spring">
+			<param name="beanName" value="bugService"></param>
+		</create>
+		<convert match="org.bugManage.entity.Userinfo" converter="bean"></convert>
+		<convert match="org.bugManage.entity.Projectuser" converter="bean"></convert>
+		<convert match="org.bugManage.entity.Projectmodel" converter="bean">
+			<param name="exclude" value="project,projectmodels,projectmodel"></param>
+		</convert>
+		<convert match="org.bugManage.entity.Bug" converter="bean"></convert>
+		<convert match="org.bugManage.entity.Project" converter="bean"></convert>
+		<convert match="org.hibernate.proxy.pojo.cglib.CGLIBLazyInitializer" converter="bean"></convert>
+	</allow>
+	<!--  
+	<signatures>
+	<![CDATA[
+	import java.util.List;
+	import java.util.Map;
+	import org.bugManage.entity.Userinfo;
+	improt org.bugManage.entity.Projectmodel;
+	improt org.bugManage.entity.Bughistory;
+	showModel.setList(List<Projectmodel> list);
+	showModel.setMap(Map<String,List<Projectmodel>> map);
+
+	]]>
+	</signatures>
+	-->
+
+</dwr>

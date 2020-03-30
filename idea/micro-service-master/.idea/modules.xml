@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-sever/eureka-sever.iml" filepath="$PROJECT_DIR$/eureka-sever/eureka-sever.iml" />
+      <module fileurl="file://$PROJECT_DIR$/feign/feign.iml" filepath="$PROJECT_DIR$/feign/feign.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hystrix-dashboard/hystrix-dashboard.iml" filepath="$PROJECT_DIR$/hystrix-dashboard/hystrix-dashboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hystrix-feign/hystrix-feign.iml" filepath="$PROJECT_DIR$/hystrix-feign/hystrix-feign.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hystrix-ribbon/hystrix-ribbon.iml" filepath="$PROJECT_DIR$/hystrix-ribbon/hystrix-ribbon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/micro-service.iml" filepath="$PROJECT_DIR$/micro-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ribbon/ribbon.iml" filepath="$PROJECT_DIR$/ribbon/ribbon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-A/service-A.iml" filepath="$PROJECT_DIR$/service-A/service-A.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-B/service-B.iml" filepath="$PROJECT_DIR$/service-B/service-B.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-B2/service-B2.iml" filepath="$PROJECT_DIR$/service-B2/service-B2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-admin/service-admin.iml" filepath="$PROJECT_DIR$/service-admin/service-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sleuth/sleuth.iml" filepath="$PROJECT_DIR$/sleuth/sleuth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/turbine/turbine.iml" filepath="$PROJECT_DIR$/turbine/turbine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zuul/zuul.iml" filepath="$PROJECT_DIR$/zuul/zuul.iml" />
+    </modules>
+  </component>
+</project>

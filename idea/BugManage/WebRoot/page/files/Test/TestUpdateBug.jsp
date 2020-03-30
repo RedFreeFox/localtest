@@ -1,0 +1,277 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>项目管理系统 by www.mycodes.net</title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.tabfont01 {	
+	font-family: "宋体";
+	font-size: 9px;
+	color: #555555;
+	text-decoration: none;
+	text-align: center;
+}
+.font051 {font-family: "宋体";
+	font-size: 12px;
+	color: #333333;
+	text-decoration: none;
+	line-height: 20px;
+}
+.font201 {font-family: "宋体";
+	font-size: 12px;
+	color: #FF0000;
+	text-decoration: none;
+}
+.button {
+	font-family: "宋体";
+	font-size: 14px;
+	height: 37px;
+}
+html { overflow-x: auto; overflow-y: auto; border:0;} 
+-->
+</style>
+
+<link href="<%=request.getContextPath() %>/page/css/css.css" rel="stylesheet" type="text/css" />
+<script type="text/JavaScript">
+
+</script>
+<link href="<%=request.getContextPath() %>/page/css/style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.STYLE1 {font-size: 18px}
+-->
+</style>
+</head>
+<SCRIPT language=JavaScript>
+function sousuo(){
+	window.open("gaojisousuo.htm","","depended=0,alwaysRaised=1,width=800,height=510,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
+}
+function selectAll(){
+	var obj = document.fom.elements;
+	for (var i=0;i<obj.length;i++){
+		if (obj[i].name == "delid"){
+			obj[i].checked = true;
+		}
+	}
+}
+
+function unselectAll(){
+	var obj = document.fom.elements;
+	for (var i=0;i<obj.length;i++){
+		if (obj[i].name == "delid"){
+			if (obj[i].checked==true) obj[i].checked = false;
+			else obj[i].checked = true;
+		}
+	}
+}
+
+function link(){
+    document.getElementById("fom").action="TestBugShow.jsp";
+    document.getElementById("fom").submit();
+}
+function link1(){
+    document.getElementById("fom").action="TestProjectView.jsp";
+    document.getElementById("fom").submit();
+}
+
+</SCRIPT>
+
+<body>
+<form action="bug.do?method=setBug" method="post" enctype="multipart/form-data" name="fom" id="fom">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  
+  <tr>
+    <td height="30">      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="62" background="<%=request.getContextPath() %>/page/images/nav04.gif"><span class="newfont07"><div align="center">
+			<h3>修改BUG</h3>
+          </div></span>
+    </table></td></tr>
+  <tr>
+    <td><div class="MainDiv">
+<table width="100%" height="101" border="0" cellpadding="0" cellspacing="0" class="CContent">
+  <tr>
+    <td class="CPanel">
+		
+		<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+		<TR>
+			<TD width="100%">
+				<input type="hidden" name="bug.bugid" value="${bug.bugid}">
+				<fieldset style="height:100%;">
+				<legend>Bug环境</legend>
+					  <table width="78%" border="0" cellpadding="2" cellspacing="1" style="width:100%">
+					<tr>
+					 <td width="10%" align="right" nowrap>所在模块:</td>
+					 <td width="8%" align="left" nowrap><label>
+					   <select name="bug.projectmodel.projectmodelid">
+					     <c:forEach items="${modellist}" var="list">
+								<c:if test="${list.projectmodelid==Model}">
+									<option value="${list.projectmodelid}" selected="selected">${list.projectmodelname}</option>
+								</c:if>
+								<c:if test="${list.projectmodelid!=Model}">
+									<option value="${list.projectmodelid}">${list.projectmodelname}</option>
+								</c:if>
+					     </c:forEach>
+				        </select>
+					 </label></td>
+					 <td width="15%" align="right" nowrap>
+					 <span class="red"> *</span>
+					 测试版本:</td>
+					 <td width="18%" align="left" nowrap><label>
+					   <select name="">
+						  <c:forEach items="${Bugedition}" var="edition">
+						  	<option value="${edition.bugeditionid}">${edition.bugeditionname}</option>
+						  </c:forEach>
+				        </select>
+					 </label></td>
+					 <td width="10%" align="right" nowrap>测试阶段</td>
+					 <td width="21%" align="left" nowrap><label>
+					   <select name="bug.testphase">
+							<c:forEach items="${TestPhase}" var="tp">
+								<c:if test="${tp.itemvalue==bug.testphase}">
+									<option value="${tp.itemvalue}" selected="selected">${tp.itemname}</option>
+								</c:if>
+								<c:if test="${tp.itemvalue!=bug.testphase}">
+									<option value="${tp.itemvalue}" >${tp.itemname}</option>
+								</c:if>
+							</c:forEach>
+				        </select>
+					 </label></td>
+					 </tr>
+					  <tr>
+					    <td colspan="8" align="left" nowrap > &nbsp;&nbsp;&nbsp;&nbsp;测试环境:
+				          <input name="bug.environment" class="text" style="width:600px" type="text" size="100" value="${bug.environment}" /></td>
+				      </table>
+				 <br />
+				</fieldset>			</TD>
+		</TR>
+		</TABLE>
+		<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+		<TR>
+			<TD width="100%">
+				<fieldset style="height:100%;">
+				<legend>Bug描述</legend>
+					  <table width="78%" border="0" cellpadding="2" cellspacing="1" style="width:100%">
+					 <tr>
+					 <td width="8%" align="right" nowrap> <span class="red"> *</span>Bug标题:</td>
+					 <td colspan="5" align="left" nowrap>
+					 <input name="bug.summary" class="text" style="width:600px" type="text" size="100" value="${bug.summary}" />
+					 </tr>
+					  <tr>
+					    <td width="8%" align="right" nowrap >
+						<span class="red"> *</span>Bug说明:</td>
+					    <td width="92%" colspan="6"><label>
+					      <textarea name="bug.detail" cols="98" >${bug.detail}</textarea>
+					    </label>
+						</td>
+					 <tr>
+					 <td width="8%" align="right" nowrap>Bug附件:</td>
+					 <td colspan="5" align="left" nowrap><label>
+					   <input name="file" type="file" size="77" />
+					 </label>
+					 </tr>
+					 					  <tr>
+					    <td width="8%" align="right" nowrap >Bug分析:</td>
+					    <td width="92%" colspan="6"><label>
+					      <textarea name="bug.analyse" cols="98">${bug.analyse}</textarea>
+					    </label>
+						</td>
+					  </table>
+					  				 <br />
+				</fieldset>			</TD>
+		</TR>
+                		<TR>
+			<TD width="100%">
+				<fieldset style="height:100%;">
+				<legend>Bug状态</legend>
+					  <table width="78%" border="0" cellpadding="2" cellspacing="1" style="width:100%">
+					 <tr>
+					 <td width="10%" align="right" nowrap>严重程度:</td>
+					 <td width="9%" align="left" nowrap><label>
+					   <select name="bug.gravitylevel">
+						<c:forEach items="${GravityLevel}" var="gra">
+							<c:if test="${gra.itemvalue==bug.gravitylevel}">
+							<option value="${gra.itemvalue}" selected="selected">${gra.itemname}</option>
+							</c:if>
+							<c:if test="${gra.itemvalue!=bug.gravitylevel}">
+							<option value="${gra.itemvalue}" >${gra.itemname}</option>
+							</c:if>
+						</c:forEach>
+				        </select>
+					 </label></td>
+					 <td width="19%" align="right" nowrap>质量特性:</td>
+					 <td width="27%" align="left" nowrap><label>
+					   <select name="bug.qualitycharacter">
+						<c:forEach items="${QualityCharacter}" var="qc">
+							<c:if test="${qc.itemvalue==bug.qualitycharacter}">
+							<option value="${qc.itemvalue}" selected="selected">${qc.itemname}</option>
+							</c:if>
+							<c:if test="${qc.itemvalue!=bug.qualitycharacter}">
+							<option value="${qc.itemvalue}" >${qc.itemname}</option>
+							</c:if>
+						</c:forEach>
+				        </select>
+					 </label></td>
+					 <td align="right" width="10%"  nowrap>再现程度:</td>
+					 <td width="25%" align="left" nowrap><label>
+					   <select name="bug.reappearance">
+						<c:forEach items="${Reapperarance}" var="r">
+							<c:if test="${r.itemvalue==bug.reappearance}">
+							<option value="${r.itemvalue}" selected="selected">${r.itemname}</option>
+							</c:if>
+							<c:if test="${r.itemvalue!=bug.reappearance}">
+							<option value="${r.itemvalue}">${r.itemname}</option>
+							</c:if>
+						</c:forEach>
+				        </select>
+					 </label></td>
+					 </tr>
+					 						<tr>
+					 <td width="10%" align="right" nowrap>修改责任人:</td>
+					 <td width="9%" align="left" nowrap><label>
+					   <select name="Principal">
+						<c:forEach items="${Principal}" var="r">
+							<c:if test="${r.userid==bug.userinfoByPrincipal.userid}">
+								<option value="${r.userid}" selected="selected">${r.name}</option>
+							</c:if>
+							<c:if test="${r.userid!=bug.userinfoByPrincipal.userid}">
+								<option value="${r.userid}" >${r.name}</option>
+							</c:if>
+						</c:forEach>
+				        </select>
+					 </label></td>
+					 <td align="right" nowrap>测试人员:</td>
+					 <td align="left" nowrap>
+					 ${bug.userinfoByPrincipal.name}</td>
+					 <td align="right" nowrap>创建时间:</td>
+					 <td align="left" nowrap>
+					 ${bug.createtime}</td>
+					 </tr>
+					 					 						<tr>
+					 <td colspan="6" align="right" nowrap><label>
+					   <div align="center">
+					     <input type="submit" name="Submit" value="提交" />
+				          </div>
+					 </label></td>
+					 </tr>
+					  </table>
+					  					  				 <br />
+				</fieldset>			</TD>
+		</TR>
+		</TABLE>
+	
+	 </td>
+  </tr>	
+	  </TABLE>
+    </form>
+</body>
+</html>

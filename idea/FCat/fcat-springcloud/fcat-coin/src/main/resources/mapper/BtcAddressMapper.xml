@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xfdmao.fcat.coin.mapper.BtcAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.xfdmao.fcat.coin.entity.BtcAddress" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="balance" property="balance" jdbcType="VARCHAR" />
+    <result column="addresses" property="addresses" jdbcType="INTEGER" />
+    <result column="coins" property="coins" jdbcType="BIGINT" />
+    <result column="usd" property="usd" jdbcType="BIGINT" />
+    <result column="addresses_total_rate" property="addressesTotalRate" jdbcType="DOUBLE" />
+    <result column="coins_rate" property="coinsRate" jdbcType="DOUBLE" />
+    <result column="addresses_rate" property="addressesRate" jdbcType="DOUBLE" />
+    <result column="coins_total_rate" property="coinsTotalRate" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

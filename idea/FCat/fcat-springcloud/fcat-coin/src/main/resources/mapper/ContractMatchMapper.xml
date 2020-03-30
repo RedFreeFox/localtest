@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xfdmao.fcat.coin.mapper.ContractMatchMapper" >
+  <resultMap id="BaseResultMap" type="com.xfdmao.fcat.coin.entity.ContractMatch" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="match_id" property="matchId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="symbol" property="symbol" jdbcType="VARCHAR" />
+    <result column="contract_type" property="contractType" jdbcType="VARCHAR" />
+    <result column="contract_code" property="contractCode" jdbcType="VARCHAR" />
+    <result column="direction" property="direction" jdbcType="VARCHAR" />
+    <result column="offset" property="offset" jdbcType="VARCHAR" />
+    <result column="trade_volume" property="tradeVolume" jdbcType="DOUBLE" />
+    <result column="trade_price" property="tradePrice" jdbcType="DOUBLE" />
+    <result column="trade_turnover" property="tradeTurnover" jdbcType="DOUBLE" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="offset_profitloss" property="offsetProfitloss" jdbcType="DOUBLE" />
+    <result column="traded_fee" property="tradedFee" jdbcType="DOUBLE" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insertBatch"    parameterType="com.xfdmao.fcat.coin.entity.ContractMatch"  >
+    REPLACE  into contract_match(
+    match_id,
+    order_id,
+    symbol,
+    contract_type,
+    contract_code,
+    direction,
+    offset,
+    trade_volume,
+    trade_price,
+    trade_turnover,
+    create_date,
+    offset_profitloss,
+    traded_fee,
+    role
+    )
+    values
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+        #{item.matchId},
+        #{item.orderId},
+        #{item.symbol},
+        #{item.contractType},
+        #{item.contractCode},
+        #{item.direction},
+        #{item.offset},
+        #{item.tradeVolume},
+        #{item.tradePrice},
+        #{item.tradeTurnover},
+        #{item.createDate},
+        #{item.offsetProfitloss},
+        #{item.tradedFee},
+        #{item.role}
+      )
+    </foreach>
+  </insert>
+</mapper>

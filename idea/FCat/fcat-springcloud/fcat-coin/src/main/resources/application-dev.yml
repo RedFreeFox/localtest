@@ -1,0 +1,93 @@
+spring:
+    application:
+        name: fcat-coin
+    thymeleaf:
+        cache: false
+    datasource:
+        name: test
+        url: jdbc:mysql://112.74.73.143:3306/fcat?useUnicode=true&characterEncoding=UTF8
+        username: root
+        password: 
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+    mail:
+        host: smtp.qq.com
+        username: angularliu@qq.com
+        password:  
+        properties:
+          mail:
+            smtp:
+              auth: true
+              starttls:
+                enable: false
+                required: false
+
+server:
+    port: 8966
+    compression:
+      enabled: true
+      min-response-size: 1024
+      mime-types:
+        - image/png
+        - image/jpeg
+        - image/jpg
+        - text/html
+        - application/javascript
+        - text/css
+        - application/octet-stream
+        - application/json
+security:
+    user:
+        name: admin
+        password: admin
+        role: USER
+    basic:
+      enabled: false
+
+mybatis:
+    basePackage: com.xfdmao.fcat.coin.mapper
+    xmlLocation: classpath:mapper/**/*.xml
+
+
+management:
+  security:
+    enabled: false
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000 #缺省为1000
+
+logging:
+    level:
+      tk.mybatis: DEBUG
+      com.xfdmao.fcat.coin: DEBUG
+    config: classpath:logback.xml
+    path: /fcat/coin
+
+swagger:
+    basepackage: com.xfdmao.fcat.coin.controller
+    service:
+        name: fcat-coin
+        description: fcat-coin后端服务接口
+        developer: xiangfei
+
+huobi:
+  contract:
+    url_prex: https://api.btcgateway.pro
