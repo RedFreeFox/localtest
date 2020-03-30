@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 添加注解扫描包 -->
+    <context:component-scan base-package="com.ccq.activemq.consumer"/>
+
+    <!-- 导入公共配置 -->
+    <import resource="spring-common.xml"/>
+
+    <!--配置receiveMessageQueue：接收消息队列(是否需要定义接收消息队列与项目需求有关，
+    比如我就是接收我前面已经定义的消息发送队列的消息，那么这里也就没有必要定义这个队列了)-->
+   <!-- <bean id="receiveMessageQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="gsm.message.receiver.queue" />&lt;!&ndash;//要在这个消息队列接收消息&ndash;&gt;
+    </bean>-->
+    <!--配置消息监听器：
+    <bean id="notificationListener" class="com.gome.gsm.jms.NotificationListener">
+        //这里需要根据系统具体写，因为监听器类里面注入了这个资源
+        <property name="notificationService" ref="notificationService" />
+    </bean>-->
+   <!-- 配置消息接收客户端：
+    <bean id="notificationConsumer"
+          class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="pooledJmsConnectionFactory" />
+        <property name="destination" ref="receiveMessageQueue" />
+        <property name="messageListener" ref="notificationListener" />
+    </bean>-->
+    <bean id="ConsumerMessageListener" class="com.ccq.activemq.consumer.ConsumerMessageListener"/>
+    <!-- 配置消息监听容器 -->
+    <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <!-- 消息监听地址 一对一    队列模式-->
+        <!--<property name="destination" ref="queueDestination"/>-->
+        <!-- 消息监听地址 发布订阅    主题模式-->
+        <property name="destination" ref="topicDestination"/>
+        <!-- 消息监听器 使用@Component来注入的consumerMessageListener-->
+        <property name="messageListener" ref="ConsumerMessageListener"/>
+    </bean>
+</beans>

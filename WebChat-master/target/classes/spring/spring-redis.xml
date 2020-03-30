@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop        
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context        					   
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx           
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+	
+	<!--<context:component-scan base-package="com.ccq.*"></context:component-scan>-->
+	
+	
+   
+    <context:property-placeholder location="classpath:redis.properties" file-encoding="utf-8" ignore-unresolvable="true"></context:property-placeholder>
+ 
+    <!--  Jedis config-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="100"/>
+        <property name="maxIdle" value="200"/>
+        <property name="maxWaitMillis" value="2000"/>
+        <property name="testOnBorrow" value="true"/>
+ 
+    </bean>
+ 
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg ref="jedisPoolConfig"/>
+        <constructor-arg value="47.107.80.121" type="java.lang.String"/>
+        <constructor-arg type="int" value="6379"/>
+    </bean>
+    
+    
+    
+	<!-- <context:property-placeholder location="classpath:jdbc.properties"/> -->
+	
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+	
+	
+	数据库类型
+	<bean id="vendorProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="MySQL">mysql</prop>
+				<prop key="OSCAR">oscar</prop>
+				<prop key="DM DBMS">dm</prop>
+				<prop key="KingbaseES">kingbase</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="databaseIdProvider"
+		class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">
+		<property name="properties" ref="vendorProperties" />
+	</bean>
+	
+	  
+    sqlSessionFactory
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+        <property name="dataSource" ref="dataSource" /> 
+        <property name="typeAliasesPackage" value="com.sun.pojo" /> 
+        <property name="mapperLocations" value="classpath*:com/sun/mapper/*Mapper.xml" /> 
+       	<property name="plugins">
+       		<array>
+       			<bean class="com.github.pagehelper.PageHelper"></bean>
+       		</array>
+       	</property>
+       	
+       	<property name="databaseIdProvider" ref="databaseIdProvider" />
+    </bean>
+    
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        可以不用指定，因为MapperScannerConfigurer会自动装配
+                  <propertyname="sqlSessionFactoryBeanName"value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.sun.mapper" />
+    </bean>
+      
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	 <property name="dataSource" ref="dataSource" /> 
+    </bean>
+    
+      
+	切面配置    
+			1.切入点     表达式
+			2.通知   管理事务(增强事务)
+	 
+    <aop:config>  
+        <aop:pointcut id="productServiceMethods" expression="execution(* com.sun.service..*.*(..))" />  
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods" />  
+    </aop:config>  
+     
+     	事务增强 ,通过 transactionManager
+     	对那些方法进行事务管理
+     		service包下的  所有以 save/add... 开头的方法
+     	
+     
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">  
+        <tx:attributes>  
+        	<tx:method name="save*"   propagation="REQUIRED"  />
+			<tx:method name="add*"    propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="del*"    propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="destroy*" propagation="REQUIRED" />
+            <tx:method name="*" propagation="SUPPORTS" read-only="true" />  
+        </tx:attributes>  
+    </tx:advice>
+    <tx:annotation-driven transaction-manager="transactionManager"/> -->
+    
+    
+    
+    
+</beans>

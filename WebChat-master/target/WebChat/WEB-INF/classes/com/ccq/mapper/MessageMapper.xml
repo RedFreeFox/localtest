@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccq.mapper.MessageMapper">
+
+    <insert id="addMessage" parameterType="message">
+         insert into message(message,messtime) values (#{message},#{messtime})
+    </insert>
+
+    <select id="getAllMessage" resultType="message">
+
+        select * from message
+    </select>
+
+</mapper>

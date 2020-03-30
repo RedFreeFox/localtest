@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 添加注解扫描包 -->
+    <context:component-scan base-package="com.ccq.activemq.producter"/>
+
+    <!-- 导入公共配置 -->
+    <import resource="spring-common.xml"/>
+
+    <!-- 配置JmsTemplate，用于发送消息 -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+
+    <!--定义发送消息的队列：
+    <bean id="sendGSMMessageQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="gsm.message.push.queue" />//队列的名字是任意写的,只要不重复
+    </bean>
+    定义生产者：将消息发送到这个队列
+    <bean id="notificationSender" class="com.gome.gsm.jms.NotificationSender">
+        <property name="jmsTemplate" ref="jmsTemplate"></property>
+        //将消息发送到这个队列
+        <property name="queue" ref="sendGSMMessageQueue"></property>
+    </bean>-->
+</beans>
